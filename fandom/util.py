@@ -3,10 +3,10 @@ from __future__ import print_function, unicode_literals
 import sys
 import functools
 import time
-import requests
 from datetime import datetime
 
 from fandom.error import HTTPTimeoutError, RequestError
+from security import safe_requests
 
 API_URL = 'https://{wiki}.fandom.com/{lang}/api.php'
 USER_AGENT = 'fandom (https://github.com/NikolajDanger/fandom-py/)'
@@ -77,7 +77,7 @@ def _wiki_request(params):
 
   params.pop("wiki")
   params.pop("lang")
-  r = requests.get(api_url, params=params, headers=headers)
+  r = safe_requests.get(api_url, params=params, headers=headers)
 
   if RATE_LIMIT:
     RATE_LIMIT_LAST_CALL = datetime.now()

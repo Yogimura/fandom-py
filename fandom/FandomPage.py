@@ -1,13 +1,12 @@
 import re
-import requests
 import copy
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from .util import stdout_encode, _wiki_request
 
 from fandom.error import (
-  PageError, RedirectError, HTTPTimeoutError, FandomError,
-  ODD_ERROR_MESSAGE)
+  PageError, RedirectError, FandomError)
+from security import safe_requests
 
 STANDARD_URL = 'https://{wiki}.fandom.com/{lang}/wiki/{page}'
 
@@ -133,7 +132,7 @@ class FandomPage(object):
     """
 
     if not getattr(self, '_html', False):
-      request = requests.get(self.url)
+      request = safe_requests.get(self.url)
       self._html = request.text
 
     return self._html
