@@ -133,7 +133,7 @@ class FandomPage(object):
     """
 
     if not getattr(self, '_html', False):
-      request = requests.get(self.url)
+      request = requests.get(self.url, timeout=60)
       self._html = request.text
 
     return self._html

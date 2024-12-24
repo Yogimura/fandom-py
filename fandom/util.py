@@ -77,7 +77,7 @@ def _wiki_request(params):
 
   params.pop("wiki")
   params.pop("lang")
-  r = requests.get(api_url, params=params, headers=headers)
+  r = requests.get(api_url, params=params, headers=headers, timeout=60)
 
   if RATE_LIMIT:
     RATE_LIMIT_LAST_CALL = datetime.now()
